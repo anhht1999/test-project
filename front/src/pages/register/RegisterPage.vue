@@ -70,6 +70,7 @@
                 class="text-danger m-b-20 d-block"
               />
 
+              <br>
               <div class="w-size25 m-auto">
                 <button
                   class="
@@ -99,6 +100,7 @@
                 >Have an account? Login now!
               </router-link>
             </p>
+            <br>
           </template>
 
           <template v-else>
@@ -179,7 +181,8 @@ export default {
 
 <style scoped>
 .register-form {
-  max-width: 500px;
+  max-width: 700px;
+  text-align: center;
 }
 button.disabled {
   opacity: 0.7;
@@ -187,5 +190,18 @@ button.disabled {
 }
 button.disabled:hover {
   background-color: #222222;
+}
+
+.t-center{
+  text-align: center;
+}
+.l-text2{
+  margin: 15px 0 20px 0;
+}
+.bo4{
+  margin-top: 10px;
+}
+.flex-c-m{
+  padding: 10px 30px 10px 30px;
 }
 </style>

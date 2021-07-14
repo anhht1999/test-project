@@ -19,7 +19,7 @@
               :disabled="isLoading"
             />
           </div>
-
+            <br />
           <ErrorMessage name="email" class="text-danger m-b-20 d-block" />
 
           <div class="bo4 of-hidden size15 m-b-10">
@@ -34,10 +34,10 @@
           </div>
 
           <ErrorMessage name="password" class="text-danger m-b-20 d-block" />
-
+              <br />
           <div class="w-size25 m-auto">
             <button
-              class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4 m-t-20"
+              class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4 m-t-20 click"
               :class="{ disabled: isLoading }"
               :disabled="isLoading"
             >
@@ -55,6 +55,7 @@
             >Don't have an account yet? Register now!
           </router-link>
         </p>
+        <br>
       </div>
     </div>
   </section>
@@ -116,7 +117,8 @@ export default {
 
 <style scoped>
 .login-form {
-  max-width: 500px;
+  max-width: 700px;
+  text-align: center;
 }
 button.disabled {
   opacity: 0.7;
@@ -124,5 +126,14 @@ button.disabled {
 }
 button.disabled:hover {
   background-color: #222222;
+}
+.t-center{
+   text-align: center;
+ }
+.l-text2{
+    margin: 20px 0 20px 0;
+}
+.click{
+  padding: 15px 30px 15px 30px;
 }
 </style>

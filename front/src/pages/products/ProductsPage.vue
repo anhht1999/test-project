@@ -9,19 +9,19 @@
               <!-- Shop Top -->
               <div class="shop-top">
                 <div class="shop-shorter">
-                  <div class="single-shorter">
+                  <!-- <div class="single-shorter">
                     <label>Sort By :</label>
                     <select>
                       <option selected="selected">Name</option>
                       <option>Price</option>
                     </select>
-                  </div>
+                  </div> -->
                   <div class="single-shorter">
                     <label>Show :</label>
                     <select>
-                      <option>Defaut</option>
-                      <option>ASC</option>
-                      <option>DESC</option>
+                      <option value="id-desc">Defaut</option>
+                      <option value="price-desc">Price: Low to High</option>
+                      <option value="price-asc">Price: High to Low</option>
                     </select>
                   </div>
                 </div>
@@ -41,8 +41,7 @@
                     <img
                       v-if="product.Url !== ''"
                       class="default-img"
-                      :src="product.Url"
-                      alt="#"
+                      :src="'http://127.0.0.1:8000/' + product.url"
                     />
                   </router-link>
                   <div class="button-head">

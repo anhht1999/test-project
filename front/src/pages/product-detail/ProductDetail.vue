@@ -10,12 +10,12 @@
         <h3>{{ product.name }}</h3>
         <div class="price">{{ product.price }}</div>
         <br />
-        <button
+        <!-- <button
           class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
           @click="updateProductQuantity(product.quantity - 1)"
         >
           <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-        </button>
+        </button> -->
 
         <input
           class="m-text18 t-center num-product"
@@ -25,12 +25,12 @@
           @input="updateProductQuantity($event.target.value)"
         />
 
-        <button
+        <!-- <button
           class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
           @click="updateProductQuantity(product.quantity + 1)"
         >
           <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-        </button>
+        </button> -->
         <br />
         <br />
         <button
@@ -58,19 +58,14 @@ export default {
 
   computed: mapState("products", ["products", "product"]),
   created() {
-    // Get product detail
     this.$store.dispatch("products/getProductById", this.$route.params.id);
-    // Get related products
-    // this.$store.dispatch("products/getFeaturedProducts");
   },
   async beforeRouteUpdate(to) {
     this.$store.dispatch("products/getProductById", to.params.id);
   },
   methods: {
     addCart() {
-      // this.$store.dispatch("cart/addProductToCart", this.product);
       this.addProductToCart(this.product);
-      // console.log(this.$store.dispatch("cart/addProductToCart", this.product))
     },
     ...mapMutations("products", ["updateProductQuantity"]),
     ...mapMutations("cart", ["addProductToCart"]),

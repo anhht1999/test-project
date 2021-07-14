@@ -11,7 +11,7 @@ export default {
         `${API_DOMAIN}/products?page=${page}&limit=${limit}&order=${order}&sort=${sort}&search=${search}${filterCategory}`
       )
       .then((response) => {
-        return response.data;
+        return response.data
       });
   },
 
@@ -19,6 +19,7 @@ export default {
     return axios.get(`${API_DOMAIN}/categories`).then((response) => {
       return response.data;
     });
+
   },
 
   async getProductById(productId) {

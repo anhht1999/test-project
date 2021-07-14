@@ -92,7 +92,7 @@ const mutations = {
 
   setProducts(state, response) {
     state.products = response.data;
-    state.totalItems = +response.totalItems;
+    state.totalItems = +response.meta.total;
   },
 
   setProduct(state, product) {
