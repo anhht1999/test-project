@@ -23,7 +23,6 @@ export default {
 
   async getProductById(productId) {
     return axios.get(`${API_DOMAIN}/products/${productId}`).then((response) => {
-      // console.log(response.data)
       return response.data;
     });
   },

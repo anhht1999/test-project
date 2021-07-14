@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import HomePage from "../pages/home/HomePage.vue";
+// import HomePage from "../pages/home/HomePage.vue";
 
 const routes = [
   {
     path: "/",
     name: "HomePage",
-    component: HomePage,
+    component: () => import("../pages/home/HomePage.vue"),
   },
   {
     path: "/product",
@@ -39,12 +39,31 @@ const routes = [
     name: "RegisterPage",
     component: () => import("../pages/register/RegisterPage.vue"),
   },
+
+  {
+    path: "/payment",
+    name: "paymentPage",
+    component: () => import("../pages/payment/payemntPage.vue"),
+  },
+
+  {
+    path: "/confirm",
+    name: "ConfirmCheckout",
+    component: () => import("../pages/confirm/confirmPage.vue"),
+  },
+
+  {
+    path: "/user",
+    name: "UserPage",
+    component: () => import("../pages/user/userPage.vue"),
+    children: [],
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  scrollBehavior(){
-      return {top: 0};
+  scrollBehavior() {
+    return { top: 0 };
   },
   routes,
 });

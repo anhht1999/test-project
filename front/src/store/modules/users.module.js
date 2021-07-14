@@ -17,6 +17,7 @@ const actions = {
         withCredentials: true,
       });
       const User = res.data.user;
+      document.cookie = `token=${res.data.token}; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/`;
       console.log(User);
       localStorage.setItem("User", JSON.stringify(User));
       commit("setLoginSuccess", true);
@@ -30,7 +31,8 @@ const actions = {
   },
 
   async logout({ commit }) {
-    await axios.post("logout");
+    await axios.post("http://127.0.0.1:8000/logout");
+    document.cookie = `token=; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/`;
     await commit("logout");
   },
 

@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <div class="py-5 text-center"></div>
+    <div class="py-5 text-center">
+      <h3>MUA HANG THANH CONG</h3>
+    </div>
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4 text-secondary">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -102,12 +104,7 @@
         <div class="row">
           <div class="col-6">
             <button class="btn btn-primary btn-lg btn-block" type="submit">
-              Back to edit infor
-            </button>
-          </div>
-          <div class="col-6">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">
-              Confirm checkout
+              Continue Shopping
             </button>
           </div>
         </div>

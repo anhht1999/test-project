@@ -95,7 +95,7 @@
                   <!--/ End Input Order -->
                 </td>
                 <td class="total" data-title="Total">
-                  <span>${{ total }}</span>
+                  <span>${{ total(cart) }}</span>
                 </td>
                 <td class="action" data-title="Remove">
                   <a
@@ -127,7 +127,7 @@
                     </li>
                   </ul>
                   <div class="button5">
-                    <a href="#" class="btn">Process To Checkout</a>
+                    <router-link to="/payment" class="btn">Process To Checkout</router-link>
                     <a href="#" class="btn">Continue shopping</a>
                   </div>
                 </div>

@@ -5,6 +5,7 @@ const state = () => ({
   isLoading: false,
   addToCartResult: "",
   totalItems: 0,
+  subTotal: 0,
 });
 
 const getters = {
@@ -19,8 +20,8 @@ const getters = {
     );
   },
 
-  total(state) {
-    return state.carts.map((product) => product.quantity * product.price);
+  total() {
+    return (product) => product.price * product.quantity;
   },
 };
 

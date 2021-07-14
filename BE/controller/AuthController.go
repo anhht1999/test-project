@@ -84,18 +84,21 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	// 	HttpOnly: true,
 	// })
 
-	cookie := &http.Cookie{
-		Name:     "jwt",
-		Value:    token,
-		Path: 	  "/",
-		Expires:  time.Now().Add(time.Hour * 24),
-	}
+	// cookie := &http.Cookie{
+	// 	Name:     "anh",
+	// 	Value:    token,
+	// 	Path: 	  "/",
+	// 	Expires:  time.Now().Add(time.Hour * 24),
+	// 	SameSite: 4,
+	// 	Secure: true,
+	// }
 
-	http.SetCookie(w, cookie)
+	// http.SetCookie(w, cookie)
 
 	json.NewEncoder(w).Encode(map[string]interface{}{
-		"message": "login successfully",
+		// "message": "login successfully",
 		"user":    user,
+		"token": token,
 	})
 
 }

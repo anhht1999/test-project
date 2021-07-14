@@ -170,9 +170,9 @@
             </div>
           </div>
           <hr class="mb-4" />
-          <button class="btn btn-primary btn-lg btn-block" type="submit">
+          <router-link to="/confirm" class="btn btn-primary btn-lg btn-block" type="submit">
             Continue to checkout
-          </button>
+          </router-link>
         </form>
       </div>
     </div>
@@ -190,7 +190,7 @@
 
 <script>
 export default {
-  name: "Payment",
+  name: "paymentPage",
 };
 </script>
 

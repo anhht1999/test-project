@@ -106,7 +106,7 @@ export default {
         .then(() => {
           this.isLoading = false;
           if (this.isLoginSuccess) {
-            this.$router.push("/");
+            this.$router.push("/user");
           }
         });
     },

@@ -26,4 +26,5 @@ func Setup(r *mux.Router) {
 
 	r.HandleFunc("/login", controller.Login).Methods(http.MethodPost)
 	r.HandleFunc("/register", controller.Register).Methods(http.MethodPost)
+	r.HandleFunc("/logout", controller.Logout).Methods(http.MethodPost)
 }
