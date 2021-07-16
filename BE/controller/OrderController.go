@@ -48,3 +48,19 @@ func UpdateStatusOrderByID(w http.ResponseWriter, r *http.Request) {
 		"order updated": order.Status,
 	})
 }
+
+func CreateOrder(w http.ResponseWriter, r *http.Request)  {
+	w.Header().Set("Content-Type", "application/json")
+	var order models.Order
+	err := json.NewDecoder(r.Body).Decode(&order)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	err = repo.CreateOrder(order)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	json.NewEncoder(w).Encode(map[string]string{"message": "success"})
+}

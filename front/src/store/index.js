@@ -13,5 +13,4 @@ const store = createStore({
     cart,
   },
 });
-
 export default store;

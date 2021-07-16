@@ -89,7 +89,10 @@ export default {
       },
     };
   },
-  computed: mapState("users", ["isLoginSuccess", "loginMessage"]),
+  computed:{
+    ...mapState("users", ["isLoginSuccess", "loginMessage"]),
+    ...mapState("cart", ["carts"]),
+  },
   created() {
     if (this.isLoginSuccess) {
       console.log(this.isLoginSuccess);
@@ -106,8 +109,11 @@ export default {
         })
         .then(() => {
           this.isLoading = false;
-          if (this.isLoginSuccess) {
+          if (this.isLoginSuccess && this.carts.length === 0) {
             this.$router.push("/user");
+          }
+          else{
+            this.$router.push("/payment");
           }
         });
     },

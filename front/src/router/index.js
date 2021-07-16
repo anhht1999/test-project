@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-// import HomePage from "../pages/home/HomePage.vue";
+import store from "../store";
 
 const routes = [
   {
@@ -43,6 +43,13 @@ const routes = [
   {
     path: "/payment",
     name: "paymentPage",
+    beforeEnter: (to, from, next)  => {
+      if(store.state.users.isLoginSuccess) {
+        next()
+      } else {
+        next("/login")
+      }
+    },
     component: () => import("../pages/payment/payemntPage.vue"),
   },
 

@@ -1,11 +1,14 @@
 import api from "@/service/cart.service";
+import axios from "axios";
 
 const state = () => ({
+  order: {},
   carts: [],
   isLoading: false,
   addToCartResult: "",
   totalItems: 0,
   subTotal: 0,
+  setOrderSuccess: false
 });
 
 const getters = {
@@ -26,6 +29,27 @@ const getters = {
 };
 
 const actions = {
+
+
+  async orders ({ commit }, order) {
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/orders", order);
+      console.log(res);
+    commit("setOrderSuccess", true);
+      commit("setRegisterMessage", "");
+    } catch (e) {
+      console.log(e);
+      // commit(
+      //   "setRegisterMessage",
+      //   e.message === "Request failed with status code 400"
+      //     ? "Email already in use"
+      //     : ""
+      // );
+      commit("setOrderSuccess", false);
+    }
+  },
+
+
   async addProductToCart({ state, commit }, product) {
     const isExists = state.carts.find((p) => p.id === product.id);
 
@@ -93,9 +117,8 @@ const mutations = {
     }
   },
 
-  // setAddToCartResult(state, message) {
-  //   state.addToCartResult = message;
-  // },
+
+
 };
 
 export default {

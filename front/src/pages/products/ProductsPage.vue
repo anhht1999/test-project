@@ -37,11 +37,10 @@
             >
               <div class="single-product">
                 <div class="product-img">
-                  <router-link :to="'/product/' + product.id">
+                  <router-link :to="'/product/' + product.name">
                     <img
-                      v-if="product.Url !== ''"
                       class="default-img"
-                      :src="'http://127.0.0.1:8000/' + product.url"
+                      :src="'http://127.0.0.1:8000/' + product.image[0].url"
                     />
                   </router-link>
                   <div class="button-head">
