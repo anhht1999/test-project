@@ -1,4 +1,5 @@
 import api from "@/service/products.service";
+import axios from "axios";
 
 const state = () => ({
   products: [],
@@ -12,7 +13,9 @@ const state = () => ({
   order: "id",
   search: "",
   totalItems: 0,
-  // checked:[],
+  image: [],
+  productMessage:"",
+  isProductSuccess: false
 });
 const getters = {
   sortDropdownValue(state) {
@@ -31,6 +34,7 @@ const getters = {
 };
 
 const actions = {
+
   async getProducts(
     { state, commit },
     { pageIndex, limit, sort, order, search, category }
@@ -83,9 +87,64 @@ const actions = {
     commit("setProduct", product);
     commit("setLoading", false);
   },
+
+  addProduct: async ( {state, commit }, product) => {
+    try {
+     const res =  await axios.post("http://localhost:8000/products", product, {withCredentials: true})
+      console.log(res);
+      const response = await api.getProducts({
+        page: state.pageIndex,
+        limit: state.limit,
+        sort: state.sort,
+        order: state.order,
+        search: state.search,
+        categoryId: state.category.id,
+      });
+      commit("setProducts", response);
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  deleteProduct: async ({commit}, id) => {
+    try {
+      await axios.delete(`http://localhost:8000/products/${id}`)
+      await commit('DELETE_PRODUCT', id)
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  updateProduct: async ( {state, commit }, product) => {
+    try {
+      const res = await axios.put(`http://localhost:8000/products`, product)
+      console.log(res);
+      const response = await api.getProducts({
+        page: state.pageIndex,
+        limit: state.limit,
+        sort: state.sort,
+        order: state.order,
+        search: state.search,
+        categoryId: state.category.id,
+      });
+      commit("setProducts", response);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
 };
 
 const mutations = {
+
+  DELETE_PRODUCT (state, id) {
+    const index = state.products.findIndex(product => product.id === id)
+    state.products.splice(index, 1)
+  },
+
+  setProductSuccess(state, status) {
+    state.isProductSuccess = status;
+  },
   setLoading(state, status) {
     state.isLoading = status;
   },
@@ -130,6 +189,10 @@ const mutations = {
 
   setSearch(state, search) {
     state.search = search;
+  },
+
+  setProductMessage(state, message) {
+    state.productMessage = message;
   },
 };
 

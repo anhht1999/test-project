@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 	"ocg-be/controller"
+	"ocg-be/util"
 
 	"github.com/gorilla/mux"
 )
@@ -14,12 +15,12 @@ func Setup(r *mux.Router) {
 	r.HandleFunc("/products", controller.CreateProduct).Methods(http.MethodPost)            //POST_PRODUCT
 	r.HandleFunc("/products/{id}", controller.GetProductById).Methods(http.MethodGet)       //GET_PRODUCT_By_Id
 	r.HandleFunc("/products/{id}", controller.DeleteProductById).Methods(http.MethodDelete) //DELETE_PRODUCT_By_Id
-	r.HandleFunc("/products", controller.UpdateProduct).Methods(http.MethodPatch)           //GET_PRODUCT_By_Id
+	r.HandleFunc("/products", controller.UpdateProduct).Methods(http.MethodPut)           //GET_PRODUCT_By_Id
 
 	//api-image
-	r.HandleFunc("/uploads", controller.CreateProductImage).Methods(http.MethodPost)
-	image := http.StripPrefix("/images/", http.FileServer(http.Dir("./")))
-	r.PathPrefix("/images/").Handler(image)
+	r.HandleFunc("/uploads", util.UploadFile).Methods(http.MethodPost)
+	images := http.StripPrefix("/images/", http.FileServer(http.Dir("./uploads/")))
+	r.PathPrefix("/images/").Handler(images)
 
 	//Category
 	r.HandleFunc("/categories", controller.GetAllCategory).Methods(http.MethodGet)

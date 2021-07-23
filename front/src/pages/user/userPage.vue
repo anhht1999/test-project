@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-    <h3 v-if ="isLoginSuccess === true">XIN chao {{user.last_name}}</h3>
+    <h3 v-if ="isLoginSuccess === true">Hello {{user.last_name}}</h3>
     <section class="bgwhite p-t-66 p-b-60">
       <div class="container">
         <div class="row m-t-30">
@@ -13,7 +13,7 @@
                 <router-link to="/user/settings">Settings</router-link>
               </li>
               <li>
-                <a href="#" @click="logout">Logout</a>
+                <a href="/" @click="logout">Logout</a>
               </li>
             </ul>
           </div>
@@ -35,10 +35,8 @@ export default {
     ...mapState("users", ["isLoginSuccess", "user"]),
   },
   methods: {
-    logout(event) {
-      event.preventDefault();
+   logout() {
       this.$store.dispatch("users/logout");
-      this.$router.replace("/");
     },
   },
 };

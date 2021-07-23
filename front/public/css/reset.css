@@ -231,7 +231,7 @@ big {
 }
 
 .section {
-	padding: 80px 0;
+	padding: 15px 0;
 	position: relative;
 }
 .section-title {
@@ -1099,11 +1099,6 @@ object {
 
 .modal-dialog .modal-content .modal-header {
 	border: none;
-	padding: 0;
-	right: 10px;
-	top: 10px;
-	position: absolute;
-	z-index: 9999;
 }
 
 @media only screen and (max-width: 767px) {
@@ -1122,11 +1117,11 @@ object {
 	height: 40px;
 	line-height: 40px;
 	text-shadow: none;
-	font-size: 11px;
+	/* font-size: 1px; */
 	background: transparent;
 	color: #737373;
-	border-radius: 100%;
-	border: 1px solid #eee;
+	/* border-radius: 100%;
+	border: 1px solid #eee; */
 	-webkit-transition:all 0.4s ease;
 	-moz-transition:all 0.4s ease;
 	transition:all 0.4s ease;
@@ -1143,13 +1138,10 @@ object {
 .modal-dialog .modal-content .modal-header .close:hover {
   color: #fff;
   border-color:transparent;
-  background:#F7941D;
+  background: red;
 }
 .modal-dialog .modal-content .modal-body {
-	padding: 0px;
 	overflow-y: auto;
-	max-height: 510px;
-	height: 700px;
 }
 .quickview-content {
 	padding: 40px 40px;

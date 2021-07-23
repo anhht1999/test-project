@@ -11,48 +11,46 @@ const state = () => ({
 const getters = {};
 
 const actions = {
-  async login({ commit }, user) {
-    try {
-      const res = await axios.post("http://127.0.0.1:8000/login", user, {
-        withCredentials: true,
-      });
-      const User = res.data.user;
-      document.cookie = `token=${res.data.token}; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/`;
-      console.log(User);
-      localStorage.setItem("User", JSON.stringify(User));
-      commit("setLoginSuccess", true);
-      commit("setLoginMessage", "");
-      commit("setUser", User);
-    } catch (error) {
-      console.log(error);
-      commit("setLoginSuccess", false);
-      commit("setLoginMessage", "User name or password is wrong!");
-    }
-  },
 
-  async logout({ commit }) {
-    await axios.post("http://127.0.0.1:8000/logout");
-    document.cookie = `token=; expires=Thu, 18 Dec 2030 12:00:00 UTC; path=/`;
-    await commit("logout");
-  },
-
+  //register
   async register({ commit }, user) {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/register", user);
-      console.log(res);
+      const res = await axios.post('http://localhost:8000/register',user)
+      console.log("register success" + res)
       commit("setRegisterSuccess", true);
       commit("setRegisterMessage", "");
     } catch (e) {
-      console.log(e);
-      commit(
-        "setRegisterMessage",
-        e.message === "Request failed with status code 400"
-          ? "Email already in use"
-          : ""
-      );
+      console.log(e)
+      commit("setRegisterMessage", e.message === "Request failed with status code 400" ? "Email already in use" : "Create new account is failed");
       commit("setRegisterSuccess", false);
     }
   },
+
+  //login
+
+  async login({ commit }, user) {
+    try {
+      const res = await axios.post("http://localhost:8000/login", user, {withCredentials: true})
+      localStorage.setItem("User", JSON.stringify(res.data.User))
+      commit("setLoginSuccess", true);
+      commit("setLoginMessage", "");
+      commit("setUser", res.data.User );
+    } catch (error) {
+      console.log(error)
+      commit("setLoginSuccess", false);
+      commit(
+          "setLoginMessage", "User name or password is wrong!"
+      );
+    }
+  },
+
+  //logout
+  async logout({ commit}){
+    await axios.post("http://localhost:8000/logout","hello", {withCredentials: true});
+    await commit("logout")
+    
+},
+
 };
 
 const mutations = {

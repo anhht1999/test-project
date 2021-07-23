@@ -1,5 +1,22 @@
 <template>
   <section class="product-area shop-sidebar shop section">
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="bread-inner">
+              <ul class="bread-list">
+                <li>
+                  <a href="index1.html">Home<i class="ti-arrow-right"></i></a>
+                </li>
+                <li class="active"><a href="blog-single.html">Product</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
     <div class="container">
       <div class="row">
         <LeftBar />
@@ -9,16 +26,9 @@
               <!-- Shop Top -->
               <div class="shop-top">
                 <div class="shop-shorter">
-                  <!-- <div class="single-shorter">
-                    <label>Sort By :</label>
-                    <select>
-                      <option selected="selected">Name</option>
-                      <option>Price</option>
-                    </select>
-                  </div> -->
                   <div class="single-shorter">
                     <label>Show :</label>
-                    <select>
+                    <select @change="sortProducts">
                       <option value="id-desc">Defaut</option>
                       <option value="price-desc">Price: Low to High</option>
                       <option value="price-asc">Price: High to Low</option>
@@ -37,7 +47,7 @@
             >
               <div class="single-product">
                 <div class="product-img">
-                  <router-link :to="'/product/' + product.name">
+                  <router-link :to="'/product/' + product.id">
                     <img
                       class="default-img"
                       :src="'http://127.0.0.1:8000/' + product.image[0].url"
@@ -89,7 +99,7 @@
 
 <script>
 import LeftBar from "./LeftBar.vue";
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapState, mapGetters, mapActions, mapMutations } from "vuex";
 import Pagination from "@/components/Pagination.vue";
 
 export default {
@@ -99,7 +109,11 @@ export default {
     LeftBar,
     Pagination,
   },
-
+  data() {
+    return {
+      quantity: 1
+    };
+  },
   computed: {
     ...mapState("products", [
       "isLoading",
@@ -121,16 +135,24 @@ export default {
 
   methods: {
     // currency,
-    sortProducts(option) {
-      const options = option.value.split("-");
-      const sort = options[0],
-        order = options[1];
+    sortProducts(event) {
+      const options = event.target.value.split("-");
+      console.log(options);
+      const sort = options[1],
+        order = options[0];
+      console.log(sort, order);
       this.$store.dispatch("products/getProducts", { sort, order });
     },
     changePage(pageIndex) {
       this.$store.dispatch("products/getProducts", { pageIndex });
     },
+    addToCart(product) {
+      console.log(product);
+      this.addProductToCart(product);
+    },
+    ...mapMutations("products", ["updateProductQuantity"]),
     ...mapActions("products", ["getProducts"]),
+    ...mapMutations("cart", ["addProductToCart"]),
   },
 };
 </script>

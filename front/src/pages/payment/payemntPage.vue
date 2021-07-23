@@ -25,7 +25,7 @@
       </div>
       <div class="col-md-8 order-md-1">
         <h4 class="mb-3">Billing address</h4>
-        <form class="needs-validation" novalidate @submit="orders">
+        <form class="needs-validation" novalidate >
           <div class="row">
             <div class="col-md-6 mb-3">
               <label for="firstName">First name</label>
@@ -77,7 +77,6 @@
               id="address"
               placeholder="1234 Main St"
               required
-              :disabled="isLoading"
             />
             <div class="invalid-feedback">
               Please enter your shipping address.
@@ -101,70 +100,19 @@
             <label for="order">Order Note</label>
             <div class="input-group">
               <input
-                :v-model="order_notes"
+                v-model="order_notes"
                 type="text"
                 class="form-control"
-                id="order note"
+                id="order_notes"
                 placeholder="Order Note"
-                :disabled="isLoading"
               />
             </div>
           </div>
-          <!-- <h4 class="mb-3">Payment <span>Credit card</span></h4>
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="cc-name">Name on card</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-name"
-                placeholder=""
-                required
-              />
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">Name on card is required</div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="cc-number">Credit card number</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-number"
-                placeholder=""
-                required
-              />
-              <div class="invalid-feedback">Credit card number is required</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <label for="cc-expiration">Expiration</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-expiration"
-                placeholder=""
-                required
-              />
-              <div class="invalid-feedback">Expiration date required</div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="cc-cvv">CVV</label>
-              <input
-                type="text"
-                class="form-control"
-                id="cc-cvv"
-                placeholder=""
-                required
-              />
-              <div class="invalid-feedback">Security code required</div>
-            </div>
-          </div> -->
           <hr class="mb-4" />
           <button
-            to="/confirm"
+            @click ="orders"
             class="btn btn-primary btn-lg btn-block btn-color"
-            type="submit"
+            type="button"
           >
             Continue to checkout
           </button>
@@ -178,43 +126,38 @@
         </form>
       </div>
     </div>
-
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-      <p class="mb-1">&copy; 2017-2019 Company Name</p>
-      <ul class="list-inline">
-        <li class="list-inline-item"><a href="#">Privacy</a></li>
-        <li class="list-inline-item"><a href="#">Terms</a></li>
-        <li class="list-inline-item"><a href="#">Support</a></li>
-      </ul>
-    </footer>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters} from "vuex";
 
 export default {
   name: "paymentPage",
   components: {},
   data() {
     return {
-      isLoading: false,
+      order_item:{
+        product_id : "",
+        quantity : "",
+      },
       order: {
         user_id: "",
         phone_number: "",
         address: "",
         order_notes: "",
         total_price: "",
-        order_items: {
-          product_id: "",
-          quantity: "",
-        },
+        order_items: [],
       },
     };
   },
   methods: {
     orders() {
-      this.isLoading = true;
+     this.order_items = this.carts.map( cart =>
+        this.order_item = {
+          product_id : cart.id,
+          quantity : cart.quantity,
+        });
       this.$store
         .dispatch("cart/orders", {
           user_id: this.user.id,
@@ -222,23 +165,15 @@ export default {
           address: this.address,
           order_notes: this.order_notes,
           total_price: this.subTotal,
-          order_items: {
-            product_id: this.carts.id,
-            quantity: this.carts.quantity,
-          },
+          order_items: this.order_items,
         })
-        .then(() => {
-          this.isLoading = false;
-          if (this.setOrderSuccess) {
+        .then( () => {
             this.$router.push("/confirm");
-          } else {
-            this.$router.push("/cart");
-          }
         });
     },
   },
   computed: {
-    ...mapState("cart", ["carts", "isLoading", "setOrderSuccess"]),
+    ...mapState("cart", ["carts","isOrderSuccess","order"]),
     ...mapState("users", ["user"]),
     ...mapGetters("cart", ["totalItems", "subTotal", "total"]),
   },

@@ -46,51 +46,6 @@
       </div>
       <div class="single-widget range">
         <h3 class="title">Shop by Price</h3>
-        <ul class="check-box-list">
-          <li>
-            <label class="checkbox-inline"
-              ><input
-                name="1-10"
-                id="1-10"
-                type="checkbox"
-                v-model="checkedPrice"
-                value="1-10"
-                @click="check" />$1 - $10<span></span
-            ></label>
-          </li>
-          <li>
-            <label class="checkbox-inline"
-              ><input
-                name="11-20"
-                id="11-20"
-                type="checkbox"
-                v-model="checkedPrice"
-                value="11-20"
-                @click="check" />$11 - $20<span></span
-            ></label>
-          </li>
-          <li>
-            <label class="checkbox-inline"
-              ><input
-                name="21-50"
-                id="21-50"
-                type="checkbox"
-                v-model="checkedPrice"
-                value="21-50"
-                @click="check" />$21 - $50<span></span
-            ></label>
-          </li>
-        </ul>
-      </div>
-      <div class="single-widget category">
-        <h3 class="title">Author</h3>
-        <ul class="categor-list">
-          <li><a href="#">Forever</a></li>
-          <li><a href="#">giordano</a></li>
-          <li><a href="#">abercrombie</a></li>
-          <li><a href="#">ecko united</a></li>
-          <li><a href="#">zara</a></li>
-        </ul>
       </div>
       <!--/ End Single Widget -->
     </div>
@@ -138,3 +93,14 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.s-text7{
+  width: 170px;
+}
+.size5 {
+  height: 32px;
+  width: 30px;
+}
+</style>

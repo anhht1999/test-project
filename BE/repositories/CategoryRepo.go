@@ -31,7 +31,7 @@ func GetCategoryByID(id int64) models.Category {
 func UpdateCategoryByID(category models.Category) error {
 
 	strQuery, err := database.DB.Prepare("UPDATE categories " +
-		"SET name = ? WHERE id = ?")
+		"SET name_cate = ? WHERE id = ?")
 
 	if err != nil {
 		panic(err.Error())
@@ -55,7 +55,7 @@ func CreateCategory(category models.Category) error {
 	}
 	category.Id += 1
 	strQuery, err := database.DB.Prepare("INSERT INTO categories " +
-		"(name)" + "VALUES (?)")
+		"(name_cate)" + "VALUES (?)")
 	if err != nil {
 		panic(err.Error())
 	}

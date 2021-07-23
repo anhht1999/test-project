@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import store from "../store";
 
 const routes = [
@@ -65,10 +65,15 @@ const routes = [
     component: () => import("../pages/user/userPage.vue"),
     children: [],
   },
+  {
+    path: "/admin",
+    name: "MenuAdmin",
+    component: () => import("../pages/admin/MenuAdmin.vue"),
+  },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   scrollBehavior() {
     return { top: 0 };
   },

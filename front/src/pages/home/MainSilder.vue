@@ -1,9 +1,9 @@
 <template>
-  <section class="hero-slider" style="margin-top:15px">
+  <section class="hero-slider" >
     <!-- Single Slider -->
     <div
       id="carouselExampleIndicators"
-      class="carousel slide"
+      class="carousel slide fix"
       data-ride="carousel"
     >
       <ol class="carousel-indicators">
@@ -17,13 +17,13 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="images/31.jpg" alt="First slide" />
+          <img class="d-block w-100 img-fluid" src="images/31.jpg" alt="First slide" />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="images/32.jpg" alt="Second slide" />
+          <img class="d-block w-100 img-fluid" src="images/32.jpg" alt="Second slide" />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="images/33.jpg" alt="Third slide" />
+          <img class="d-block w-100 img-fluid" src="images/33.jpg" alt="Third slide" />
         </div>
       </div>
       <a
@@ -47,61 +47,19 @@
     </div>
     <!--/ End Single Slider -->
   </section>
-
-  <section class="small-banner section">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Single Banner  -->
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="single-banner">
-            <img src="https://via.placeholder.com/600x370" alt="#" />
-            <div class="content">
-              <p>Man's Collectons</p>
-              <h3>
-                Summer travel <br />
-                collection
-              </h3>
-              <a href="#">Discover Now</a>
-            </div>
-          </div>
-        </div>
-        <!-- /End Single Banner  -->
-        <!-- Single Banner  -->
-        <div class="col-lg-4 col-md-6 col-12">
-          <div class="single-banner">
-            <img src="https://via.placeholder.com/600x370" alt="#" />
-            <div class="content">
-              <p>Bag Collectons</p>
-              <h3>
-                Awesome Bag <br />
-                2020
-              </h3>
-              <a href="#">Shop Now</a>
-            </div>
-          </div>
-        </div>
-        <!-- /End Single Banner  -->
-        <!-- Single Banner  -->
-        <div class="col-lg-4 col-12">
-          <div class="single-banner tab-height">
-            <img src="https://via.placeholder.com/600x370" alt="#" />
-            <div class="content">
-              <p>Flash Sale</p>
-              <h3>
-                Mid Season <br />
-                Up to <span>40%</span> Off
-              </h3>
-              <a href="#">Discover Now</a>
-            </div>
-          </div>
-        </div>
-        <!-- /End Single Banner  -->
-      </div>
-    </div>
-  </section>
 </template>
 <script>
 export default {
   Name: "MainSilder",
 };
 </script>
+
+<style scoped>
+.hero-slider{
+  margin-top: 15px;
+  margin-bottom: 40px
+}
+.fix {
+  height: 500px;
+}
+</style>

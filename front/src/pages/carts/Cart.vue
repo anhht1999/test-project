@@ -1,23 +1,22 @@
 <template>
-  <div class="breadcrumbs">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <div class="bread-inner">
-            <ul class="bread-list">
-              <li>
-                <a href="index1.html">Home<i class="ti-arrow-right"></i></a>
-              </li>
-              <li class="active"><a href="blog-single.html">Cart</a></li>
-            </ul>
+  <div class="shopping-cart section">
+    <div class="breadcrumbs">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="bread-inner">
+              <ul class="bread-list">
+                <li>
+                  <router-link to="/">Home<i class="ti-arrow-right"></i></router-link>
+                </li>
+                <li class="active"><router-link to="/cart">Cart</router-link></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="shopping-cart section">
-    <div class="container">
+    <div class="container" v-if="this.carts.length > 0">
       <div class="row">
         <div class="col-12">
           <!-- Shopping Summery -->
@@ -34,8 +33,11 @@
             </thead>
             <tbody v-for="cart in carts" :key="cart.id">
               <tr>
-                <td class="image" data-title="No">
-                  <img :src="'http://localhost:3000' + cart.Url" alt="#" />
+                <td class="image" >
+                  <img
+                    v-if="cart.image"
+                    :src="'http://127.0.0.1:8000/' + cart.image[0].url"
+                  />
                 </td>
                 <td class="product-des" data-title="Description">
                   <p class="product-name">
@@ -127,7 +129,9 @@
                     </li>
                   </ul>
                   <div class="button5">
-                    <router-link to="/payment" class="btn">Process To Checkout</router-link>
+                    <router-link to="/payment" class="btn"
+                      >Process To Checkout</router-link
+                    >
                     <a href="#" class="btn">Continue shopping</a>
                   </div>
                 </div>
@@ -135,6 +139,16 @@
             </div>
           </div>
           <!--/ End Total Amount -->
+        </div>
+      </div>
+    </div>
+    <!-- no cart -->
+    <div class="container" v-if="this.carts.length === 0">
+      <div class="row">
+        <div class="col-12 t-center">
+          <div class="button5">
+            <router-link to="/product" class="btn">Shopping Now</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -157,3 +171,9 @@ export default {
   },
 };
 </script>
+<style>
+.t-center {
+  text-align: center;
+  color: aliceblue;
+}
+</style>

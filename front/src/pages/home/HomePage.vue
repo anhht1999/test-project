@@ -1,6 +1,8 @@
 <template>
-    <MainSilder/>
-    <MainProduct/>
+    <div>
+        <MainSilder/>
+        <MainProduct/>
+    </div>
 </template>
 
 <script>

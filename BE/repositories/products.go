@@ -6,7 +6,8 @@ import (
 	"log"
 	"ocg-be/database"
 	"ocg-be/models"
-	"reflect"
+	// "ocg-be/util"
+	// "reflect"
 )
 
 type ProductStorage struct {
@@ -39,15 +40,16 @@ func (p *ProductStorage) TakeByParams(limit int, offset int, categoryId int, ord
 	var rows *sql.Rows
 	var err error
 
-	qtext := fmt.Sprintf("SELECT * FROM products WHERE name LIKE ? ORDER BY %s %s LIMIT ? OFFSET ? ", orderBy, sort)
-	qtextCate := fmt.Sprintf("SELECT * FROM products WHERE name LIKE ? AND category_id = ? ORDER BY %s %s LIMIT ? OFFSET ? ", orderBy, sort)
+	qtext := fmt.Sprintf("SELECT p.id,p.name,p.description,p.price,p.trade_mark,p.category_id,cate.name_cate FROM products p "+ 
+	"INNER JOIN categories cate ON cate.id = p.category_id WHERE name LIKE ? ORDER BY %s %s LIMIT ? OFFSET ? ", orderBy, sort)
+
+	qtextCate := fmt.Sprintf("SELECT p.id,p.name,p.description,p.price,p.trade_mark,,p.category_id,c.name_cate FROM products p JOIN categories c ON c.id = p.category_id WHERE name LIKE ? AND category_id = ? ORDER BY %s %s LIMIT ? OFFSET ? ", orderBy, sort)
 
 	if categoryId == 0 {
 		rows, err = database.DB.Query(qtext, search, limit, offset)
 	} else {
 		rows, err = database.DB.Query(qtextCate, search, categoryId, limit, offset)
 	}
-
 	if err != nil {
 		log.Println(err)
 		return nil
@@ -55,7 +57,7 @@ func (p *ProductStorage) TakeByParams(limit int, offset int, categoryId int, ord
 
 	for rows.Next() {
 		var product models.Product
-		err = rows.Scan(&product.Id, &product.Name, &product.Description, &product.Price, &product.CategoryId, &product.Trademark)
+		err = rows.Scan(&product.Id, &product.Name, &product.Description, &product.Price, &product.Trademark, &product.CategoryId, &product.Category)
 
 		if err != nil {
 			log.Println(err)
@@ -89,7 +91,12 @@ func (p *ProductStorage) Add(product *models.Product) int {
 			return 0
 		}
 	}
-
+	for _, image := range product.Image {
+		_, err = database.DB.Exec("INSERT INTO images VALUES (?, ?)", product.Id, image.Url)
+	}
+	if err != nil {
+		panic(err)
+	}
 	return product.Id
 }
 
@@ -122,43 +129,12 @@ func (p *ProductStorage) DeleteById(id int) {
 	}
 }
 
-func (p *ProductStorage) UpdateProduct(product *models.Product) (*models.Product, error) {
-	log.Println(product.Id)
-	fmt.Println(reflect.TypeOf(product.Id))
-	if product.CategoryId != 0 {
-		_, err := database.DB.Query("UPDATE products SET category_id=? WHERE id=?", product.CategoryId, product.Id)
-		if err != nil {
-			return nil, err
-		}
-	}
-	if product.Price != 0 {
-		log.Println("price")
-		_, err := database.DB.Query("UPDATE products SET price=? WHERE id=?", product.Price, product.Id)
-		if err != nil {
-			return nil, err
-		}
+func (p *ProductStorage) UpdateProduct(product models.Product) (err error) {
 
+	strQuery, err := database.DB.Prepare("UPDATE products SET name= ?, description = ?,price= ?,category_id= ? ,trade_mark= ? WHERE id=?")
+	if err != nil {
+		panic(err.Error())
 	}
-	if product.Description != "" {
-		_, err := database.DB.Query("UPDATE products SET description=? WHERE id=?", product.Description, product.Id)
-		if err != nil {
-			return nil, err
-		}
-	}
-	if product.Name != "" {
-		log.Println("name")
-		_, err := database.DB.Query("UPDATE products SET name=? WHERE id=?", product.Name, product.Id)
-		if err != nil {
-			return nil, err
-		}
-	}
-	if product.Trademark != "" {
-		_, err := database.DB.Query("UPDATE products SET trade_mark=? WHERE id=?", product.Trademark, product.Id)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return product, nil
-
+	strQuery.Exec(product.Name, product.Description, product.Price, product.CategoryId, product.Trademark, product.Id)
+	return err
 }

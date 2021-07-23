@@ -2884,7 +2884,7 @@
 }
 .shopping-cart {
 	background: #f6f6f6;
-	padding: 50px 0;
+	/* padding: 50px 0; */
 }
 .shopping-summery thead .main-hading{
 	padding:0px 50px;
@@ -4879,7 +4879,7 @@
   
   .product-detail .thumbnail {
     height: 10rem;
-    background-color: #f6f2f1;
+    /* background-color: #f6f2f1; */
     text-align: center;
   }
   
@@ -4972,7 +4972,7 @@
     }
   
     .product-detail .thumbnail {
-      background-color: #f6f2f1;
+      /* background-color: #f6f2f1; */
       text-align: center;
     }
   }

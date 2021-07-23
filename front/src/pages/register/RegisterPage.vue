@@ -1,22 +1,39 @@
 <template>
   <div>
     <!-- Title Page -->
-
-    <h2 class="l-text2 t-center">Register account</h2>
+    <section>
+      <h2 class="l-text2 t-center">Register</h2>
+    </section>
 
     <!-- content page -->
     <section class="bgwhite p-t-66 p-b-60">
       <div class="container">
         <div class="register-form m-auto">
           <template v-if="!isRegisterSuccess">
-            <Form @submit="register" :validation-schema="schema">
+            <Form @submit="onSubmit" :validation-schema="schema">
               <p class="m-b-10 text-center text-danger">
                 {{ registerMessage }}
               </p>
 
               <div class="bo4 of-hidden size15 m-b-10">
                 <Field
-                  v-model="first_name"
+                  v-model="user.last_name"
+                  name="last_name"
+                  type="text"
+                  placeholder="Last Name"
+                  class="sizefull s-text7 p-l-22 p-r-22"
+                  :disabled="isLoading"
+                />
+              </div>
+
+              <ErrorMessage
+                name="last_name"
+                class="text-danger m-b-20 d-block"
+              />
+
+              <div class="bo4 of-hidden size15 m-b-10">
+                <Field
+                    v-model="user.first_name"
                   name="first_name"
                   type="text"
                   placeholder="First Name"
@@ -26,24 +43,13 @@
               </div>
 
               <ErrorMessage
-                name="firstName"
+                name="first_name"
                 class="text-danger m-b-20 d-block"
               />
 
               <div class="bo4 of-hidden size15 m-b-10">
                 <Field
-                  v-model="last_name"
-                  name="last_name"
-                  type="text"
-                  placeholder="Last Name"
-                  class="sizefull s-text7 p-l-22 p-r-22"
-                  :disabled="isLoading"
-                />
-              </div>
-
-              <div class="bo4 of-hidden size15 m-b-10">
-                <Field
-                  v-model="email"
+                    v-model="user.email"
                   name="email"
                   type="text"
                   placeholder="Email"
@@ -56,7 +62,7 @@
 
               <div class="bo4 of-hidden size15 m-b-10">
                 <Field
-                  v-model="password"
+                    v-model="user.password"
                   name="password"
                   type="password"
                   placeholder="Password"
@@ -65,24 +71,26 @@
                 />
               </div>
 
+              <ErrorMessage name="password" class="text-danger m-b-20 d-block" />
+
+              <div class="bo4 of-hidden size15 m-b-10">
+                <Field
+                  name="confirm_password"
+                  type="password"
+                  placeholder="Confirm Password"
+                  class="sizefull s-text7 p-l-22 p-r-22"
+                  :disabled="isLoading"
+                />
+              </div>
+
               <ErrorMessage
-                name="password"
+                name="confirm_password"
                 class="text-danger m-b-20 d-block"
               />
 
-              <br>
               <div class="w-size25 m-auto">
                 <button
-                  class="
-                    flex-c-m
-                    size2
-                    bg1
-                    bo-rad-23
-                    hov1
-                    m-text3
-                    trans-0-4
-                    m-t-20
-                  "
+                    class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4 m-t-20"
                   :class="{ disabled: isLoading }"
                   :disabled="isLoading"
                 >
@@ -100,7 +108,6 @@
                 >Have an account? Login now!
               </router-link>
             </p>
-            <br>
           </template>
 
           <template v-else>
@@ -118,8 +125,9 @@
 
 <script>
 import { mapState } from "vuex";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from "yup";
+import * as Yup from "yup";
 export default {
   name: "RegisterPage",
   components: {
@@ -129,11 +137,12 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
+      last_name: yup
+        .string()
+        .required("Your name is required!"),
       first_name: yup
         .string()
-        .required("First Name is required!")
-        .min(3, "First Name must be at least 3 characters!")
-        .max(20, "First Name must be maximum 20 characters!"),
+        .required("Your name is required!"),
       email: yup
         .string()
         .required("Email is required!")
@@ -144,11 +153,20 @@ export default {
         .required("Password is required!")
         .min(6, "Password must be at least 6 characters!")
         .max(40, "Password must be maximum 40 characters!"),
+      confirm_password: yup
+      .string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
     });
     return {
       isLoading: false,
       message: "",
       schema,
+      user: {
+        last_name: '',
+        first_name: '',
+        email: '',
+        password: ''
+      }
     };
   },
   computed: mapState("users", [
@@ -162,13 +180,12 @@ export default {
     }
   },
   methods: {
-    async register(user) {
-      this.isLoading = true;
-      await this.$store.dispatch("users/register", {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
-        password: user.password,
+    onSubmit() {
+      this.$store.dispatch("users/register", {
+        last_name: this.user.last_name,
+        first_name: this.user.first_name,
+        email: this.user.email,
+        password: this.user.password,
       });
       this.isLoading = false;
       if (this.isRegisterSuccess) {
@@ -181,8 +198,7 @@ export default {
 
 <style scoped>
 .register-form {
-  max-width: 700px;
-  text-align: center;
+  max-width: 500px;
 }
 button.disabled {
   opacity: 0.7;
@@ -190,18 +206,5 @@ button.disabled {
 }
 button.disabled:hover {
   background-color: #222222;
-}
-
-.t-center{
-  text-align: center;
-}
-.l-text2{
-  margin: 15px 0 20px 0;
-}
-.bo4{
-  margin-top: 10px;
-}
-.flex-c-m{
-  padding: 10px 30px 10px 30px;
 }
 </style>

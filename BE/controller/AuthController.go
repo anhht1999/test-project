@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	// "fmt"
 	"net/http"
 	"strconv"
@@ -12,16 +13,19 @@ import (
 	"ocg-be/util"
 )
 
+type ResLogin struct {
+	User   models.User
+	Result string
+	Token  string
+}
+
 func Register(w http.ResponseWriter, r *http.Request) {
 	var data map[string]string
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	// if data["password"] != data["password_confirm"] {
-	// 	http.Error(w, "password match incorrect", http.StatusBadRequest)
-	// 	return
-	// }
+
 	user := models.User{
 		Last_name:  data["last_name"],
 		First_name: data["first_name"],
@@ -29,6 +33,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		Role:       2,
 	}
 	user.SetPassword(data["password"])
+
 	strQuery, err := database.DB.Prepare("INSERT INTO users" +
 		"(last_name, first_name, email, password, role_id)" +
 		"VALUES (?,?, ?, ?, ?)")
@@ -36,12 +41,16 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic("Could not create new user")
 	}
+
 	_, err = strQuery.Exec(user.Last_name, user.First_name, user.Email, user.Password, user.Role)
 	if err != nil {
-		panic(err.Error())
+		http.Error(w, "Email is existed", http.StatusMethodNotAllowed)
+		return
 	}
+
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"message": "Register successfully",
+		"user": user,
 	})
 }
 
@@ -71,46 +80,56 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := util.GenerateJwt(strconv.Itoa(int(user.Id)))
+	token, err := util.GenerateJwt(strconv.Itoa(int(user.Role)))
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		fmt.Println(err.Error())
 	}
-	// http.SetCookie(w, &http.Cookie{
-	// 	Name:    "token",
-	// 	Value:   token,
-	// 	Path:    "/",
-	// 	Expires: time.Now().Add(time.Hour * 24),
-	// 	HttpOnly: true,
-	// })
 
-	// cookie := &http.Cookie{
-	// 	Name:     "anh",
-	// 	Value:    token,
-	// 	Path: 	  "/",
-	// 	Expires:  time.Now().Add(time.Hour * 24),
-	// 	SameSite: 4,
-	// 	Secure: true,
-	// }
+	idToken, _ := util.GenerateJwt(strconv.Itoa(int(user.Id)))
 
-	// http.SetCookie(w, cookie)
+	cookie := &http.Cookie{
+		Name:    "jwt",
+		Value:   token,
+		Path:    "/",
+		Expires: time.Now().Add(time.Hour * 24),
+	}
 
-	json.NewEncoder(w).Encode(map[string]interface{}{
-		// "message": "login successfully",
-		"user":    user,
-		"token": token,
+	idCookie := &http.Cookie{
+		Name:    "userId",
+		Value:   idToken,
+		Path:    "/",
+		Expires: time.Now().Add(time.Hour * 24),
+	}
+
+	http.SetCookie(w, cookie)
+	http.SetCookie(w, idCookie)
+	w.Header().Set("JWT", token)
+	json.NewEncoder(w).Encode(ResLogin{
+		Result: "Login successfully",
+		User: user, 
+		Token: token,
 	})
 
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie{
-		Name:     "token",
+		Name:     "jwt",
 		Value:    "",
 		Expires:  time.Now().Add(-time.Hour),
 		HttpOnly: true,
 	}
+
+	idCookie := http.Cookie{
+		Name:    "userId",
+		Value:   "",
+		Path:    "/",
+		Expires: time.Now().Add(-time.Hour),
+		HttpOnly: true,
+	}
+	
 	http.SetCookie(w, &cookie)
+	http.SetCookie(w, &idCookie)
 
 	json.NewEncoder(w).Encode(map[string]string{
 		"message": "logout successfully",

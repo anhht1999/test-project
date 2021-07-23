@@ -12,7 +12,7 @@ func UploadFile(files []*multipart.FileHeader) ([]string, error) {
 	for _, file := range files {
 		f, _ := file.Open()
 		defer f.Close()
-		tempFile, err := ioutil.TempFile("public", "image-*.png")
+		tempFile, err := ioutil.TempFile("public", "image-*.jpg")
 		if err != nil {
 			fmt.Println(err.Error())
 			return nil, err

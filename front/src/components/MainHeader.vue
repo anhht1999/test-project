@@ -8,7 +8,9 @@
           <div class="col-lg-2 col-md-2 col-12">
             <!-- Logo -->
             <div class="logo">
-              <a href="index.html"><img src="images/logo.png" alt="logo" /></a>
+              <router-link to="/"
+                ><img src="images/logo.png" alt="logo"
+              /></router-link>
             </div>
             <!--/ End Logo -->
             <!-- Search Form -->
@@ -16,7 +18,6 @@
               <div class="top-search">
                 <a href="#0"><i class="ti-search"></i></a>
               </div>
-              <!-- Search Form -->
               <div class="search-top">
                 <form class="search-form">
                   <input
@@ -29,21 +30,11 @@
                   </button>
                 </form>
               </div>
-              <!--/ End Search Form -->
             </div>
             <!--/ End Search Form -->
             <div class="mobile-nav"></div>
           </div>
-          <div class="col-lg-8 col-md-7 col-12">
-            <!-- <div class="search-bar-top">
-							<div class="search-bar">
-								<form>
-									<input name="search" placeholder="Search Products Here....." type="search">
-									<button class="btnn"><i class="ti-search"></i></button>
-								</form>
-							</div>
-						</div> -->
-          </div>
+          <div class="col-lg-8 col-md-7 col-12"></div>
           <div class="col-lg-2 col-md-3 col-12">
             <div class="right-bar">
               <!-- Search Form -->
@@ -56,30 +47,31 @@
               <div class="sinlge-bar shopping">
                 <router-link to="/cart" class="single-icon"
                   ><i class="ti-bag"></i>
-                  <span class="total-count">{{ totalItems }}</span></router-link
-                >
+                  <span class="total-count">{{ totalItems }}</span>
+                </router-link>
                 <!-- Shopping Item -->
                 <div class="shopping-item">
                   <div class="dropdown-cart-header">
-                    <span>{{ totalItems }}</span>
+                    <span class="total-count" >{{ totalItems }}</span>
                     <router-link to="/cart">View Cart</router-link>
                   </div>
                   <ul
                     class="shopping-list"
                     v-for="cart in carts"
-                    :key="cart.ID"
+                    :key="cart.id"
                   >
                     <li>
-                      <!-- <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a> -->
                       <a class="cart-img" href="#"
-                        ><img :src="'http://localhost:3000' + cart.Url" alt="#"
+                        ><img
+                          v-if="cart.image"
+                          :src="'http://localhost:8000/' + cart.image[0].url"
                       /></a>
                       <h4>
-                        <a href="#">{{ cart.Name }}</a>
+                        <a href="#">{{ cart.name }}</a>
                       </h4>
                       <p class="quantity">
                         {{ cart.quantity }} -
-                        <span class="amount">${{ cart.Price }}</span>
+                        <span class="amount">${{ cart.price }}</span>
                       </p>
                     </li>
                   </ul>
@@ -88,7 +80,9 @@
                       <span>Total</span>
                       <span class="total-amount">${{ subTotal }}</span>
                     </div>
-                    <a href="#" class="btn animate">Checkout</a>
+                    <router-link to="/payment" class="btn animate"
+                      >Checkout</router-link
+                    >
                   </div>
                 </div>
                 <!--/ End Shopping Item -->

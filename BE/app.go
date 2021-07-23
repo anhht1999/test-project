@@ -22,6 +22,9 @@ func main() {
 
 	router := mux.NewRouter()
 
+	fs := http.FileServer(http.Dir("./public"))
+    router.PathPrefix("/public").Handler(http.StripPrefix("/public", fs))
+
 	handleCross := handlers.CORS(
 		handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}),
 		handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"}),
