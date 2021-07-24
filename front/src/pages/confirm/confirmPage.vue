@@ -10,17 +10,18 @@
         </h4>
         <ul class="list-group mb-3">
           <li
+            v-for="cart in cart_item" :key="cart.id"
             class="list-group-item d-flex justify-content-between lh-condensed"
           >
             <div>
-              <h6 class="my-0">Product name</h6>
-              <small class="text-muted">Brief description</small>
+              <h6 class="my-0">{{cart.name}}</h6>
+              <small class="text-muted">{{cart.description}}</small>
             </div>
-            <span class="text-muted">$12</span>
+            <span class="text-muted">${{cart.price}}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>$20</strong>
+            <strong>${{subTotal}}</strong>
           </li>
         </ul>
       </div>
@@ -28,26 +29,30 @@
         <h4 class="mb-3">Confirm Information</h4>
         <div class="row mb-2">
           <div class="col-3 mt-1"><h6>First name :</h6></div>
-          <div class="col-9"><p>anh</p></div>
+          <div class="col-9"><p>{{order.first_name}}</p></div>
         </div>
         <div class="row mb-2">
           <div class="col-3 mt-1"><h6>Last name :</h6></div>
-          <div class="col-9"><p class="text-secondary">le</p></div>
-        </div>
-        <div class="row mb-2">
-          <div class="col-3 mt-1"><h6>Username :</h6></div>
-          <div class="col-9"><p class="text-secondary">TRONG NHAN</p></div>
+          <div class="col-9"><p class="text-secondary">{{order.last_name}}</p></div>
         </div>
         <div class="row mb-2">
           <div class="col-3 mt-1"><h6>Email :</h6></div>
-          <div class="col-9"><p class="text-secondary">abc@example.com</p></div>
+          <div class="col-9"><p class="text-secondary">{{order.email}}</p></div>
         </div>
         <div class="row mb-2">
           <div class="col-3 mt-1">
             <h6>Address :</h6>
           </div>
           <div class="col-9">
-            <p class="text-secondary">abc street xyc city</p>
+            <p class="text-secondary">{{order.address}}</p>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-3 mt-1">
+            <h6>Phone number :</h6>
+          </div>
+          <div class="col-9">
+            <p class="text-secondary">{{order.phone_number}}</p>
           </div>
         </div>
         <hr class="mb-4" />
@@ -64,8 +69,22 @@
 </template>
 
 <script>
+
+import {mapState} from 'vuex';
+
 export default {
   name: "ConfirmCheckout",
+  computed:{
+    ...mapState("cart",["order","cart_item"])
+  },
+  methods:{
+    subTotal() {
+    return this.cart_item.reduce(
+      (totalPrice, product) => totalPrice + product.quantity * product.price,
+      0
+    );
+  },
+  }
 };
 </script>
 

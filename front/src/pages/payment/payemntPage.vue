@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <b v-if="isOrderSuccess === false" >System Error</b>
     <div class="py-5 text-center"></div>
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">
@@ -7,8 +8,9 @@
           <span class="text-muted">Your cart</span>
           <span class="badge badge-secondary badge-pill">{{ totalItems }}</span>
         </h4>
-        <ul class="list-group mb-3" v-for="cart in carts" :key="cart.id">
+        <ul class="list-group mb-3" >
           <li
+            v-for="cart in carts" :key="cart.id"
             class="list-group-item d-flex justify-content-between lh-condensed"
           >
             <div>
@@ -35,7 +37,6 @@
                 type="text"
                 class="form-control"
                 id="firstName"
-                placeholder=""
               />
               <!-- <div class="invalid-feedback">Valid first name is required.</div> -->
             </div>
@@ -47,7 +48,6 @@
                 type="text"
                 class="form-control"
                 id="lastName"
-                placeholder=""
                 required
               />
               <!-- <div class="invalid-feedback">Valid last name is required.</div> -->
@@ -62,6 +62,7 @@
               type="email"
               class="form-control"
               id="email"
+              required
             />
             <div class="invalid-feedback">
               Please enter a valid email address for shipping updates.
@@ -91,6 +92,8 @@
               class="form-control"
               id="phone_number"
               placeholder="Phone Number"
+              max="11"
+              minlength="10"
               required
             />
             <div class="invalid-feedback">Please enter your phome number.</div>
@@ -167,8 +170,12 @@ export default {
           total_price: this.subTotal,
           order_items: this.order_items,
         })
-        .then( () => {
+        .then(() => {
+          if (this.isOrderSuccess) {
             this.$router.push("/confirm");
+          } else {
+            this.$router.push("/payment");
+          }
         });
     },
   },

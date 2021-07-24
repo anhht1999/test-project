@@ -40,12 +40,7 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/4.jpg"
                               alt="#"
                             />
                           </a>
@@ -58,14 +53,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -91,7 +78,7 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="images/3.jpg"
+                              src="images/5.jpg"
                               alt="#"
                             />
                             <span class="price-dec">30% Off</span>
@@ -105,14 +92,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -138,7 +117,7 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="images/3.jpg"
+                              src="images/6.jpg"
                               alt="#"
                             />
                           </a>
@@ -151,14 +130,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -184,12 +155,7 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/7.jpg"
                               alt="#"
                             />
                             <span class="out-of-stock">Hot</span>
@@ -203,14 +169,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -245,14 +203,10 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/8.jpg"
                               alt="#"
                             />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
+                        
                             <span class="price-dec">30% Off</span>
                           </a>
                           <div class="button-head">
@@ -264,14 +218,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -297,12 +243,7 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/9.jpg"
                               alt="#"
                             />
                           </a>
@@ -315,14 +256,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -348,12 +281,7 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/10.jpg"
                               alt="#"
                             />
                             <span class="out-of-stock">Hot</span>
@@ -367,14 +295,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -409,14 +329,10 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/11.jpg"
                               alt="#"
                             />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
+                      
                           </a>
                           <div class="button-head">
                             <div class="product-action">
@@ -427,14 +343,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">
@@ -460,14 +368,10 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/12.jpg"
                               alt="#"
                             />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
+                          
                             <span class="price-dec">30% Off</span>
                           </a>
                           <div class="button-head">
@@ -480,14 +384,7 @@
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
                               >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
-                              >
+                      
                             </div>
                             <div class="product-action-2">
                               <a title="Add to cart" href="#">Add to cart</a>
@@ -512,14 +409,10 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/14.jpg"
                               alt="#"
                             />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
+                        
                           </a>
                           <div class="button-head">
                             <div class="product-action">
@@ -531,14 +424,7 @@
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
                               >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
-                              >
+                          
                             </div>
                             <div class="product-action-2">
                               <a title="Add to cart" href="#">Add to cart</a>
@@ -563,14 +449,10 @@
                           <a href="product-details.html">
                             <img
                               class="default-img"
-                              src="https://via.placeholder.com/550x750"
+                              src="images/4.jpg"
                               alt="#"
                             />
-                            <img
-                              class="hover-img"
-                              src="https://via.placeholder.com/550x750"
-                              alt="#"
-                            />
+                      
                             <span class="out-of-stock">Hot</span>
                           </a>
                           <div class="button-head">
@@ -582,14 +464,6 @@
                                 href="#"
                                 ><i class="ti-eye"></i
                                 ><span>Quick Shop</span></a
-                              >
-                              <a title="Wishlist" href="#"
-                                ><i class="ti-heart"></i
-                                ><span>Add to Wishlist</span></a
-                              >
-                              <a title="Compare" href="#"
-                                ><i class="ti-bar-chart-alt"></i
-                                ><span>Add to Compare</span></a
                               >
                             </div>
                             <div class="product-action-2">

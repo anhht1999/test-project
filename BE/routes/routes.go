@@ -25,11 +25,15 @@ func Setup(r *mux.Router) {
 	//Category
 	r.HandleFunc("/categories", controller.GetAllCategory).Methods(http.MethodGet)
 
+	//login-register-logout
 	r.HandleFunc("/login", controller.Login).Methods(http.MethodPost) //LOGIN
 	r.HandleFunc("/register", controller.Register).Methods(http.MethodPost) //REGISTER
 	r.HandleFunc("/logout", controller.Logout).Methods(http.MethodPost) //LOGOUT
 
+	//order
 	r.HandleFunc("/orders", controller.GetAllOrders).Methods(http.MethodGet) //GET_ORDERs
 	r.HandleFunc("/orders", controller.CreateOrder).Methods(http.MethodPost) //POST_ORDERs
-	
+	r.HandleFunc("/orders/{id}", controller.GetOrderByID).Methods(http.MethodGet) //Get_ORDERs_BY_ID
+	r.HandleFunc("/orders", controller.UpdateStatusOrderByID).Methods(http.MethodPut) //UPDATE_STATUS_ORDERs_BY_ID
+	r.HandleFunc("/revenues", controller.GetRevenueByDay).Methods(http.MethodGet)
 }

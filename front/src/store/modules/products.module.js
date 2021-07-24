@@ -88,10 +88,10 @@ const actions = {
     commit("setLoading", false);
   },
 
-  addProduct: async ( {state, commit }, product) => {
+  async addProduct ( {state, commit }, product) {
+    console.log(product);
     try {
-     const res =  await axios.post("http://localhost:8000/products", product, {withCredentials: true})
-      console.log(res);
+    await axios.post("http://localhost:8000/products", product, {withCredentials: true})
       const response = await api.getProducts({
         page: state.pageIndex,
         limit: state.limit,
@@ -106,7 +106,7 @@ const actions = {
     }
   },
 
-  deleteProduct: async ({commit}, id) => {
+  async deleteProduct ({commit}, id) {
     try {
       await axios.delete(`http://localhost:8000/products/${id}`)
       await commit('DELETE_PRODUCT', id)
@@ -115,7 +115,7 @@ const actions = {
     }
   },
 
-  updateProduct: async ( {state, commit }, product) => {
+  async updateProduct ( {state, commit }, product) {
     try {
       const res = await axios.put(`http://localhost:8000/products`, product)
       console.log(res);

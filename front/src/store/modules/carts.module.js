@@ -6,6 +6,7 @@ const state = () => ({
   addToCartResult: "",
   totalItems: 0,
   subTotal: 0,
+  cart_item: [],
   isOrderSuccess: false,
 });
 
@@ -28,13 +29,13 @@ const getters = {
 
 const actions = {
 
-
-  async orders({ commit }, order) {
+  async orders({ commit,state }, order) {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/orders", order);
-      console.log(res);
+      await axios.post("http://127.0.0.1:8000/orders", order);
+      commit("setOrder", order);
+      commit("setCartItem", state.carts)
       commit("setOrderSuccess", true);
-      // commit("setOrder", order);
+      commit("setCart")
     } catch (e) {
       console.log(e);
       commit("setOrderSuccess", false);
@@ -44,8 +45,16 @@ const actions = {
 
 const mutations = {
 
-  setOrder(state, carts) {
-    state.order.push(carts)
+  setCart(state){
+      state.carts = []
+  },
+
+  setCartItem(state, carts) {
+    state.cart_item = carts
+  },
+
+  setOrder(state, res){
+    state.order = res
   },
 
   setOrderSuccess(state, status) {

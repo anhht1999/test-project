@@ -42,7 +42,9 @@
         </li>
       </ul>
       <div class="tab-content col-10 col-md-10 col-lg-10">
-        <div class="tab-pane" id="messages" role="tabpanel">Chart</div>
+        <div class="tab-pane" id="messages" role="tabpanel">
+          <BarChart :date= "date" :rev="rev"/>
+        </div>
         <div class="tab-pane active" id="home" role="tabpanel">
           <!-- Button trigger modal -->
           <button
@@ -106,39 +108,30 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">order</th>
-                <th scope="col">Description</th>
-                <th scope="col">Price</th>
-                <th scope="col">Caterogy</th>
-                <th scope="col">Image</th>
-                <th scope="col">Trade mark</th>
+                <th scope="col">Crated At</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone number</th>
+                <th scope="col">Order Note</th>
+                <th scope="col">Total</th>
+                <th scope="col">Status</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
+              <tr v-for="order in orders" :key="order.id">
+                <th scope="row">{{ order.created_at }}</th>
+                <td>{{ order.first_name }} {{ order.last_name }}</td>
+                <td>{{ order.email }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.phone_number }}</td>
+                <td>{{ order.order_note }}</td>
+                <td>{{ order.total_price }}$</td>
+                <td>{{ order.status }}</td>
                 <td>
-                  <a><i class="ti-pencil edit-icon"></i></a>-<a
-                    ><i class="ti-trash remove-icon"></i
-                  ></a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td>
-                  <a><i class="ti-pencil edit-icon"></i></a>-<a
-                    ><i class="ti-trash remove-icon"></i
+                  <a @click="detailModal(order.id)"
+                    ><i class="ti-eye edit-icon"></i
                   ></a>
                 </td>
               </tr>
@@ -259,16 +252,11 @@
       </div>
     </div>
     <!-- End Create product Modal -->
-
     <!--Edit product Modal -->
     <div
       :class="{ show: isOpenModal, 'show-edit': isOpenModal }"
       class="modal fade"
       id="edit"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="edit"
-      aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered add-modal" role="document">
         <div class="modal-content">
@@ -383,36 +371,114 @@
       </div>
     </div>
     <!-- End Modal -->
+    <!-- detail order Modal -->
+    <div
+      :class="{ show: isOpenModalDetail, 'show-edit': isOpenModalDetail }"
+      class="modal fade"
+      id="detail"
+    >
+      <div class="modal-dialog modal-dialog-centered add-modal" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLongTitle">Detail Order</h4>
+
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              @click="closeModal()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="od in order_items" :key="od.id">
+                    <th scope="row">{{ od.name }}</th>
+                    <td>{{ od.price }}$</td>
+                    <td>{{ od.quantity }}</td>
+                    <td>{{ od.quantity * od.price }}$</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Total Order: </label>
+                <span> {{ subTotal }}$</span>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlFile1">Status</label>
+                <select class="form-control form-control-sm"  v-model="status">
+                  <option value="false">Pending</option>
+                  <option value="true">Sucess</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              @click="closeModal()"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="updateStatus()"
+            >
+              Update status
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End detail order Modal -->
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
 import Pagination from "@/components/Pagination.vue";
+import api from "@/service/upload.service";
+import BarChart from "@/components/BarChart.vue";
 
 export default {
   name: "MenuAdmin",
   components: {
     Pagination,
+    BarChart,
   },
   data() {
     return {
+      label : [],
+      status: "",
+      isOpenModalDetail: false,
       isOpenModal: false,
       productId: 0,
+      orderId: 0,
       editProduct: "",
       url: "",
-      img: {
-        url: "",
-      },
-      add_product: {
-        id: "",
-        name: "",
-        description: "",
-        price: "",
-        trade_mark: "",
-        category_id: "",
-        image: [],
-      },
+      img: [],
+      id: "",
+      name: "",
+      description: "",
+      price: "",
+      trade_mark: "",
+      category_id: "",
+      image: [],
     };
   },
   computed: {
@@ -426,17 +492,40 @@ export default {
       "productMessage",
       "isLoading",
     ]),
+    ...mapState("orders", [
+      "orders",
+      "order_items",
+      "revenues",
+      "rev",
+      "date",
+      "isLoading",
+    ]),
     ...mapGetters("products", ["itemStartIndex", "itemEndIndex"]),
+    ...mapGetters("orders", ["subTotal"]),
   },
   created() {
     this.$store.dispatch("products/getProducts", {});
     this.$store.dispatch("products/getCategories");
+    this.$store.dispatch("orders/getOrders");
+    this.$store.dispatch("orders/getRevenues", {});
   },
   methods: {
     onFileChange(e) {
       const file = e.target.files[0];
-      console.log(file);
       this.url = URL.createObjectURL(file);
+
+      let formData = new FormData();
+      if (file != "") {
+        formData.append("file", file);
+        api
+          .uploadImages(formData)
+          .then((response) => {
+            this.image.push(response);
+          })
+          .catch(function () {
+            console.log("FAILURE!!");
+          });
+      }
     },
     changePage(pageIndex) {
       this.$store.dispatch("products/getProducts", { pageIndex });
@@ -445,29 +534,24 @@ export default {
       this.isOpenModal = true;
       this.productId = product.id;
       this.editProduct = product;
-      // console.log(this.editProduct);
     },
     closeModal() {
       this.isOpenModal = false;
+      this.isOpenModalDetail = false;
     },
     addProduct() {
-      this.img = {
-        url: this.url,
-      };
+      for (let i = 0; i < this.image.length; i++) {
+        this.img.push({ url: this.image[i] });
+      }
       this.$store.dispatch("products/addProduct", {
         name: this.name,
         description: this.description,
         price: parseInt(this.price),
         category_id: this.categoryId,
         trade_mark: this.trade_mark,
-        image: [this.img],
+        image: this.img,
       });
-      if (this.isProductSuccess) {
-        this.$router.push("/admin");
-        this.message = "Create product successfully.";
-      }
     },
-
     updateProduct() {
       this.$store.dispatch("products/updateProduct", {
         id: this.editProduct.id,
@@ -478,9 +562,27 @@ export default {
         category_id: this.categoryId,
         image: [this.editProduct.image[0]],
       });
+      this.isOpenModal = false;
     },
-
-    ...mapActions("products", ["getProducts", "deleteProduct"]),
+    detailModal(id) {
+      console.log(id);
+      this.isOpenModalDetail = true;
+      this.orderId = id;
+      this.$store.dispatch("orders/GetOrderByID", this.orderId);
+    },
+    updateStatus() {
+      this.$store.dispatch("orders/updateStatus", {
+        id: this.orderId,
+        status: this.status,
+      });
+       this.isOpenModalDetail = false;
+    },
+    ...mapActions("products", [
+      "getProducts",
+      "deleteProduct",
+      "getCategories",
+    ]),
+    ...mapActions("orders", ["getOrders"]),
   },
 };
 </script>
@@ -572,5 +674,14 @@ i {
 }
 #image {
   line-height: 15px;
+}
+.dashboard {
+    display: flex;
+    /* flex-direction: ; */
+    padding-top: 110px;
+}
+.chart{
+    width: 50%;
+    height: 100%;
 }
 </style>

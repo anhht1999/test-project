@@ -6,7 +6,8 @@ import (
 	"net/http"
 	"ocg-be/database"
 	"ocg-be/routes"
-
+	
+	"ocg-be/rmq-sendmail/reportService"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/handlers"
 )
@@ -32,6 +33,9 @@ func main() {
 		handlers.AllowCredentials(),
 	)
 
+	go func() {
+		reportService.RunReportService()
+	}()
 	routes.Setup(router)
 	fmt.Println("Server running at localhost:8000")
 
