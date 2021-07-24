@@ -111,7 +111,7 @@ export default {
   created() {
     if (this.isLoginSuccess) {
       console.log(this.isLoginSuccess);
-      this.$router.push("/");
+      this.$router.push("/user");
     }
   },
   methods: {
@@ -125,7 +125,7 @@ export default {
         .then(() => {
           this.isLoading = false;
           if (this.isLoginSuccess && this.carts.length === 0) {
-            this.$router.push("/user");
+            this.$router.push("/product");
           } else {
             this.$router.push("/payment");
           }

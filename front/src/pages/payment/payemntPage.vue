@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b v-if="isOrderSuccess === false" >System Error</b>
+    <!-- <b v-if="isOrderSuccess === false" >System Error</b> -->
     <div class="py-5 text-center"></div>
     <div class="row">
       <div class="col-md-4 order-md-2 mb-4">

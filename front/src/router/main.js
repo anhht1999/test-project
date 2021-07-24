@@ -8,67 +8,67 @@ const routes = [
     path: '/:pathMatch(.*)*',
     name: '404-page',
     component: () => import('../pages/404Page'),
-    meta: { roles: ['customer', 'admin'] }
+    meta: { roles: ['user', 'admin'] }
   },
   {
     path: '/',
     name: 'home-page',
     component: () => import('../pages/HomePage'),
-    meta: { roles: ['customer'] }
+    meta: { roles: ['user'] }
   },
   {
     path: '/products',
     name: 'products-page',
     component: () => import('../pages/ProductsCategory'),
-    meta: { roles: ['customer'] }
+    meta: { roles: ['user'] }
   },
   {
     path: '/products/:slug',
     name: 'products-detail-page',
     component: () => import('../pages/ProductDetail'),
-    meta: { roles: ['customer'] }
+    meta: { roles: ['user'] }
   },
   {
-    path: '/shopping-cart',
+    path: '/cart',
     name: 'shopping-cart-page',
     component: () => import('../pages/ShoppingCart'),
-    meta: { requiresAuth: true, roles: ['customer'] }
+    meta: { requiresAuth: true, roles: ['user'] }
   },
   {
     path: '/categories/:slug',
     name: 'products-category',
     component: () => import('../pages/ProductsCategory'),
-    meta: { roles: ['customer'] }
+    meta: { roles: ['user'] }
   },
   {
     path: '/login',
     name: 'login',
     component: () => import('../pages/LoginPage'),
-    meta: { roles: ['customer', 'admin'] }
+    meta: { roles: ['user', 'admin'] }
   },
   {
     path: '/register',
     name: 'register',
     component: () => import('../pages/RegisterPage'),
-    meta: { roles: ['customer'] }
+    meta: { roles: ['user'] }
   },
   {
     path: '/products/search',
     name: 'search',
     component: () => import('../pages/SearchPage'),
-    meta: { roles: ['customer'] }
+    meta: { roles: ['user'] }
   },
   {
     path: '/bill',
     name: 'bill',
     component: () => import('../pages/BillPage'),
-    meta: { requiresAuth: true, roles: ['customer'] }
+    meta: { requiresAuth: true, roles: ['user'] }
   },
   {
     path: '/bill-detail/:id',
     name: 'bill-detail',
     component: () => import('../pages/BillDetailPage'),
-    meta: { requiresAuth: true, roles: ['customer'] }
+    meta: { requiresAuth: true, roles: ['user'] }
   },
   // Route for admin
   {
@@ -104,7 +104,7 @@ router.beforeEach(async (to, from, next) => {
     if (!store.getters.isAuthenticated) {
       const res = await getUserByCookie();
       store.dispatch('setUser', res.data);
-      if (res.data.role === 'customer') {
+      if (res.data.role === 'user') {
         store.dispatch('getCartProduct');
         store.commit('updateLayout', 'LayoutShop');
       }

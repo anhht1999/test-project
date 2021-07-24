@@ -21,7 +21,7 @@
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>Total (USD)</span>
-            <strong>${{subTotal}}</strong>
+            <strong>$ {{ subTotal }}</strong>
           </li>
         </ul>
       </div>
@@ -29,15 +29,15 @@
         <h4 class="mb-3">Confirm Information</h4>
         <div class="row mb-2">
           <div class="col-3 mt-1"><h6>First name :</h6></div>
-          <div class="col-9"><p>{{order.first_name}}</p></div>
+          <div class="col-9"><p>{{user.first_name}}</p></div>
         </div>
         <div class="row mb-2">
           <div class="col-3 mt-1"><h6>Last name :</h6></div>
-          <div class="col-9"><p class="text-secondary">{{order.last_name}}</p></div>
+          <div class="col-9"><p class="text-secondary">{{user.last_name}}</p></div>
         </div>
         <div class="row mb-2">
           <div class="col-3 mt-1"><h6>Email :</h6></div>
-          <div class="col-9"><p class="text-secondary">{{order.email}}</p></div>
+          <div class="col-9"><p class="text-secondary">{{user.email}}</p></div>
         </div>
         <div class="row mb-2">
           <div class="col-3 mt-1">
@@ -55,12 +55,20 @@
             <p class="text-secondary">{{order.phone_number}}</p>
           </div>
         </div>
+        <div class="row mb-2">
+          <div class="col-3 mt-1">
+            <h6>Order Note :</h6>
+          </div>
+          <div class="col-9">
+            <p class="text-secondary">{{order.order_notes}}</p>
+          </div>
+        </div>
         <hr class="mb-4" />
         <div class="row">
           <div class="col-6">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">
+            <router-link to="/product" class="btn btn-primary btn-lg btn-block" type="submit">
               Continue Shopping
-            </button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -75,16 +83,18 @@ import {mapState} from 'vuex';
 export default {
   name: "ConfirmCheckout",
   computed:{
-    ...mapState("cart",["order","cart_item"])
-  },
-  methods:{
+    ...mapState("cart",["order","cart_item"]),
+    ...mapState("users",["user"]),
+
     subTotal() {
-    return this.cart_item.reduce(
-      (totalPrice, product) => totalPrice + product.quantity * product.price,
-      0
-    );
+      let subTotal = 0;
+      for (let i = 0; i < this.cart_item.length; i++) {
+        subTotal += this.cart_item[i].quantity * this.cart_item[i].price;
+      }
+      return subTotal;
+    },
   },
-  }
+  
 };
 </script>
 

@@ -10,7 +10,7 @@ import (
 func GetAllOrder() []dto.DetailUser {
 
 	qtext := "SELECT od.id,od.create_at,od.address, od.phone_number, od.order_notes, od.status,od.total_price,"+ 
-	"u.first_name, u.last_name, u.email FROM orders od JOIN users u ON u.id = od.user_id WHERE u.role_id = 2 LIMIT 25 OFFSET 1;"
+	"u.first_name, u.last_name, u.email FROM orders od JOIN users u ON u.id = od.user_id WHERE u.role_id = 2 ORDER BY id DESC LIMIT 25 OFFSET 1;"
 
 	rows, err := database.DB.Query(qtext)
 	

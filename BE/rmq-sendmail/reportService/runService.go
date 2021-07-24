@@ -19,7 +19,7 @@ func RunReportService() {
 			sendMessage(q, ch, revenueYesterday())
 	})
 
-	c.AddFunc("0 17 15 * * * ", func() {
+	c.AddFunc("0 15 15 * * * ", func() {
 		rabbitmqService.Receiver(ch, q)
 		// go func() {}()
 		time.Sleep(1 * time.Second)

@@ -128,7 +128,8 @@
                 <td>{{ order.phone_number }}</td>
                 <td>{{ order.order_note }}</td>
                 <td>{{ order.total_price }}$</td>
-                <td>{{ order.status }}</td>
+                <td v-if="order.status === true">Sucess</td>
+                <td v-else>Pending</td>
                 <td>
                   <a @click="detailModal(order.id)"
                     ><i class="ti-eye edit-icon"></i
@@ -252,6 +253,7 @@
       </div>
     </div>
     <!-- End Create product Modal -->
+
     <!--Edit product Modal -->
     <div
       :class="{ show: isOpenModal, 'show-edit': isOpenModal }"
@@ -319,13 +321,13 @@
 
               <div class="form-group">
                 <label for="exampleFormControlFile1">Image</label>
-                <input
+                <!-- <input
                   accept="image/*"
                   type="file"
                   class="form-control-file"
                   id="image"
                   @change="onFileChange"
-                />
+                /> -->
                 <img
                   id="preview"
                   v-if="editProduct.image"
@@ -371,6 +373,7 @@
       </div>
     </div>
     <!-- End Modal -->
+
     <!-- detail order Modal -->
     <div
       :class="{ show: isOpenModalDetail, 'show-edit': isOpenModalDetail }"
@@ -418,9 +421,9 @@
               </div>
               <div class="form-group">
                 <label for="exampleFormControlFile1">Status</label>
-                <select class="form-control form-control-sm"  v-model="status">
-                  <option value="false">Pending</option>
-                  <option value="true">Sucess</option>
+                <select  v-model="status">
+                  <option value="0">Pending</option>
+                  <option value="1">Sucess</option>
                 </select>
               </div>
             </form>
