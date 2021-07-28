@@ -91,9 +91,10 @@ func DeleteProductById(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	requestBody, _ := ioutil.ReadAll(r.Body)
 	var product models.Product
 	json.Unmarshal(requestBody, &product)
 	productStorage.UpdateProduct(product)
-	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
 }

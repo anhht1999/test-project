@@ -49,6 +49,7 @@
                 <div class="product-img">
                   <router-link :to="'/product/' + product.id">
                     <img
+                      v-if="product.image"
                       class="default-img"
                       :src="'http://127.0.0.1:8000/' + product.image[0].url"
                     />

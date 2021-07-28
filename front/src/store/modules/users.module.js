@@ -8,7 +8,9 @@ const state = () => ({
   registerMessage: "",
 });
 
-const getters = {};
+const getters = {
+  isAuthenticated: state => !!state.user
+};
 
 const actions = {
 
